@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banco de Questões · Apostas ENEM 2026</title>
+<style>
+:root{
+  --paper:#f6f1e7; --paper2:#efe7d8; --card:#fffdf8; --ink:#1d2433; --ink2:#4a5263; --mute:#8a8576;
+  --rule:#d9cfbd; --red:#c2412d; --ok:#2f7d4f; --bad:#b8402e;
+  --g1:#2f7d4f; --g1b:#e3f0e6; --g2:#6a4c9c; --g2b:#ece6f5; --g3:#16808f; --g3b:#dff0f2; --g4:#3d4a5c; --g4b:#e3e6ea;
+  --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+  --text:"Charter","Bitstream Charter","Sitka Text",Cambria,Georgia,serif;
+  --mono:"SFMono-Regular","Cascadia Mono",Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--text);font-size:17px;line-height:1.55;
+  background-image:repeating-linear-gradient(0deg,transparent 0 31px,rgba(120,100,60,.06) 31px 32px);}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+
+/* ===== Masthead ===== */
+.mast{border-bottom:3px double var(--ink);padding:28px 40px 18px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;
+  background:linear-gradient(var(--paper),var(--paper));position:relative}
+.mast .kick{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--red)}
+.mast h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,58px);line-height:1;margin:8px 0 6px;letter-spacing:-.01em}
+.mast h1 em{font-style:italic;color:var(--red)}
+.mast .sub{color:var(--ink2);font-size:15px;max-width:640px}
+.score{display:flex;gap:0;border:1.5px solid var(--ink);background:var(--card)}
+.score div{padding:10px 18px;text-align:center;border-right:1px solid var(--rule)}
+.score div:last-child{border-right:0}
+.score b{display:block;font-family:var(--serif);font-size:30px;font-weight:400;line-height:1}
+.score span{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+
+/* ===== Groups ribbon ===== */
+.groups{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid var(--ink)}
+.gbtn{border:0;border-right:1px solid var(--rule);background:transparent;text-align:left;padding:14px 20px 14px 22px;position:relative;transition:background .2s}
+.gbtn:last-child{border-right:0}
+.gbtn::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--c)}
+.gbtn:hover{background:var(--cb)}
+.gbtn.on{background:var(--cb)}
+.gbtn.on::after{content:"✓";position:absolute;right:14px;top:12px;color:var(--c);font-weight:700}
+.gbtn .gn{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--c)}
+.gbtn .gt{font-family:var(--serif);font-size:18px;line-height:1.2;margin:2px 0}
+.gbtn .gc{font-size:13px;color:var(--ink2)}
+.gbtn[disabled]{opacity:.55;cursor:not-allowed}
+
+/* ===== Layout ===== */
+.wrap{display:grid;grid-template-columns:290px minmax(0,1fr);gap:0;min-height:70vh}
+aside{border-right:1px solid var(--rule);padding:24px 22px 80px;position:sticky;top:0;align-self:start;max-height:100vh;overflow:auto;background:var(--paper)}
+aside h3{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);margin:22px 0 8px;font-weight:400}
+aside h3:first-child{margin-top:0}
+.search{width:100%;border:1.5px solid var(--ink);background:var(--card);padding:9px 12px;font:inherit;font-size:15px;outline:none}
+.search:focus{box-shadow:3px 3px 0 var(--red)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--rule);background:var(--card);padding:4px 10px;font-size:14px;border-radius:999px;transition:all .15s}
+.chip small{color:var(--mute);font-family:var(--mono);font-size:11px;margin-left:3px}
+.chip:hover{border-color:var(--ink)}
+.chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.chip.on small{color:#c9c2b2}
+select{width:100%;border:1px solid var(--rule);background:var(--card);padding:7px 8px;font:inherit;font-size:14px}
+.tools{display:flex;flex-direction:column;gap:8px;margin-top:22px}
+.tbtn{border:1.5px solid var(--ink);background:var(--card);padding:8px 12px;text-align:left;font-size:14.5px;transition:transform .1s, box-shadow .1s}
+.tbtn:hover{box-shadow:3px 3px 0 var(--ink);transform:translate(-1px,-1px)}
+.tbtn.primary{background:var(--red);border-color:var(--red);color:#fff}
+.tbtn.primary:hover{box-shadow:3px 3px 0 var(--ink)}
+.subjbar{margin-top:20px}
+.sb{display:grid;grid-template-columns:96px minmax(0,1fr) 30px;gap:8px;align-items:center;font-size:13px;margin:4px 0}
+.sb i{display:block;height:7px;background:var(--paper2);position:relative}
+.sb i u{position:absolute;inset:0 auto 0 0;background:var(--ink);text-decoration:none}
+.sb em{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--mute);text-align:right}
+
+main{padding:26px 40px 90px;min-width:0}
+.resbar{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:10px;margin-bottom:22px}
+.resbar .count{font-family:var(--serif);font-size:24px}
+.resbar .count em{color:var(--red);font-style:normal}
+.active{font-size:13.5px;color:var(--ink2)}
+.active button{border:0;background:none;text-decoration:underline;color:var(--red);font-size:13.5px;padding:0 0 0 8px}
+
+/* ===== Card ===== */
+.q{background:var(--card);border:1px solid var(--rule);margin:0 0 26px;position:relative;box-shadow:0 1px 0 var(--rule),0 10px 24px -18px rgba(40,30,10,.35);
+  opacity:0;transform:translateY(8px);animation:rise .45s forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.q::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--c)}
+.qh{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;padding:14px 22px 12px 28px;border-bottom:1px dashed var(--rule)}
+.qnum{font-family:var(--serif);font-size:26px;line-height:1}
+.qnum small{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--mute);margin-right:6px;vertical-align:middle}
+.tag{font-size:12.5px;padding:2px 9px;border:1px solid var(--rule);border-radius:3px;color:var(--ink2);background:var(--paper)}
+.tag.m{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tag.g{background:var(--cb);color:var(--c);border-color:transparent;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.status{margin-left:auto;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.status.ok{color:var(--ok)} .status.bad{color:var(--bad)}
+.qb{padding:16px 28px 6px 28px}
+.qb p{margin:0 0 .8em;white-space:pre-line}
+.qb p.cmd{font-weight:600}
+.fig{border:1px dashed var(--mute);background:repeating-linear-gradient(45deg,var(--paper) 0 8px,var(--paper2) 8px 9px);padding:10px 14px;font-size:14px;color:var(--ink2);margin:4px 0 14px}
+.fig b{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:2px;font-weight:400}
+.opts{list-style:none;margin:6px 0 0;padding:0 28px 6px}
+.opt{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:start;width:100%;text-align:left;border:1px solid transparent;background:none;padding:8px 10px;margin:2px 0;border-radius:4px;transition:background .15s,border-color .15s}
+.opt:hover{background:var(--paper)}
+.opt .L{width:28px;height:28px;border:1.5px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-size:15px;margin-top:-1px}
+.opt.right{background:#e5f2e8;border-color:#a9d1b4}
+.opt.right .L{background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.wrong{background:#f7e3dd;border-color:#e2b3a7}
+.opt.wrong .L{background:var(--bad);border-color:var(--bad);color:#fff;text-decoration:line-through}
+.locked .opt{cursor:default}
+.qf{display:flex;gap:10px;flex-wrap:wrap;padding:8px 28px 16px}
+.lbtn{border:0;background:none;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:6px 0;border-bottom:1.5px solid currentColor;margin-right:14px;color:var(--ink2)}
+.lbtn:hover{color:var(--red)}
+.sol{margin:0 28px 20px;border-left:3px solid var(--red);background:var(--paper);padding:12px 18px;display:none}
+.sol.open{display:block;animation:rise .3s forwards}
+.sol h4{margin:0 0 6px;font-family:var(--serif);font-weight:400;font-size:19px}
+.sol h4 span{color:var(--red)}
+.sol p{margin:0 0 .6em;white-space:pre-line;font-size:16px}
+
+.pager{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.pager button{border:1px solid var(--rule);background:var(--card);min-width:38px;padding:6px 10px;font-family:var(--mono);font-size:13px}
+.pager button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.empty{text-align:center;padding:60px 20px;color:var(--ink2);font-family:var(--serif);font-size:22px}
+footer{padding:20px 40px 70px;border-top:1px solid var(--rule);font-size:13px;color:var(--mute)}
+.menu{display:none}
+
+@media (max-width:900px){
+  .mast{grid-template-columns:1fr;padding:22px 18px 14px}
+  .groups{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .gbtn{border-bottom:1px solid var(--rule)}
+  .wrap{grid-template-columns:1fr}
+  aside{position:static;max-height:none;border-right:0;border-bottom:1px solid var(--rule);display:none}
+  aside.show{display:block}
+  .menu{display:block;margin:12px 18px 0}
+  main{padding:20px 14px 90px}
+  .qb,.opts,.qf{padding-left:18px;padding-right:14px}
+  .sol{margin:0 14px 18px}
+}
+@media print{
+  body{background:none;font-size:12pt}
+  aside,.groups,.pager,.qf,.menu,.resbar .active,.score{display:none!important}
+  .wrap{display:block} main{padding:0}
+  .mast{padding:0 0 10px}
+  .q{break-inside:avoid;box-shadow:none;animation:none;opacity:1;transform:none;margin-bottom:14px}
+  .sol{display:block!important;border-left-width:2px}
+  @page{size:A4;margin:16mm}
+}
+</style>
+</head>
+<body>
+<header class="mast">
+  <div>
+    <div class="kick">Apostas de Edcley Teixeira · ENEM 2026</div>
+    <h1>Banco de <em>Questões</em></h1>
+    <div class="sub">192 questões das Partes 1 a 4, organizadas pelos grupos do seu cronograma TRI, por matéria e por assunto. Clique em uma alternativa para corrigir na hora e abrir a resolução comentada.</div>
+  </div>
+  <div class="score">
+    <div><b id="sTot">0</b><span>no filtro</span></div>
+    <div><b id="sDone">0</b><span>respondidas</span></div>
+    <div><b id="sPct">–</b><span>acertos</span></div>
+  </div>
+</header>
+
+<nav class="groups" id="groups"></nav>
+<button class="tbtn menu" id="menuBtn">☰ Filtros</button>
+
+<div class="wrap">
+  <aside id="side">
+    <h3>Buscar</h3>
+    <input class="search" id="q" placeholder="palavra, tema, autor…">
+    <h3>Matéria</h3>
+    <div class="chips" id="mats"></div>
+    <h3>Assunto</h3>
+    <select id="ass"></select>
+    <h3>Caderno</h3>
+    <div class="chips" id="parts"></div>
+    <h3>Situação</h3>
+    <div class="chips" id="stat"></div>
+    <div class="tools">
+      <button class="tbtn primary" id="shuffle">⟳ Embaralhar questões</button>
+      <button class="tbtn" id="clear">Limpar filtros</button>
+      <button class="tbtn" id="reset">Zerar minhas respostas</button>
+      <button class="tbtn" id="print">Imprimir filtro com resoluções</button>
+    </div>
+    <h3>Distribuição por matéria</h3>
+    <div class="subjbar" id="dist"></div>
+  </aside>
+
+  <main>
+    <div class="resbar">
+      <div class="count" id="count"></div>
+      <div class="active" id="active"></div>
+    </div>
+    <div id="list"></div>
+    <div class="pager" id="pager"></div>
+  </main>
+</div>
+<footer>Fonte: PDFs "Apostas de Edcley Teixeira — ENEM 2026" (Partes 1, 2, 3 e 4) e "Ranking Mestre — Mentoria Promover" (grupos). A classificação em grupo é feita pelo assunto mais próximo do ranking. Figuras e imagens dos PDFs aparecem descritas em texto; a Questão 27 da Parte 4 teve o enunciado reconstruído a partir da resolução. Suas respostas ficam salvas neste navegador.</footer>
+
+<script>
+var QS=[];
+function Q(p,n,mat,ass,g,t,o,a,r,fig){QS.push({id:p+"-"+n,p:p,n:n,mat:mat,ass:ass,g:g,t:t,o:o,a:a,r:r,fig:fig||""});}
+</script>
+<script src="d1.js"></script>
+<script src="d2.js"></script>
+<script src="d3.js"></script>
+<script src="d4.js"></script>
+<script src="d5.js"></script>
+<script src="d6.js"></script>
+<script src="d7.js"></script>
+<script src="d8.js"></script>
+<script>
+(function(){
+var GROUPS={
+ 1:{t:"Fáceis & alta incidência",d:"Base TRI ENEM · garantia de pontos",c:"--g1"},
+ 2:{t:"Média & alta recorrência",d:"Núcleo principal",c:"--g2"},
+ 3:{t:"Média/alta dificuldade",d:"Alavancas de nota",c:"--g3"},
+ 4:{t:"Difíceis & regionais",d:"Álgebra avançada · Ceará · Redação",c:"--g4"}
+};
+var MAT_ORDER=["Matemática","Física","Química","Biologia","História","Geografia","Sociologia","Filosofia","Linguagens"];
+var PER=15;
+var st={g:null,mat:null,ass:"",p:null,s:"all",q:"",page:1,order:null,printAll:false};
+var ans={};
+try{ans=JSON.parse(localStorage.getItem("bq_enem26")||"{}")}catch(e){ans={}}
+function save(){try{localStorage.setItem("bq_enem26",JSON.stringify(ans))}catch(e){}}
+var $=function(id){return document.getElementById(id)};
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function norm(s){return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"")}
+QS.forEach(function(x){x._s=norm([x.mat,x.ass,x.t,x.o.join(" "),x.r].join(" "))});
+
+function base(skip){
+  var nq=norm(st.q.trim());
+  return QS.filter(function(x){
+    if(skip!=="g"&&st.g&&x.g!==st.g)return false;
+    if(skip!=="mat"&&st.mat&&x.mat!==st.mat)return false;
+    if(skip!=="ass"&&st.ass&&x.ass!==st.ass)return false;
+    if(skip!=="p"&&st.p&&x.p!==st.p)return false;
+    if(skip!=="s"&&st.s!=="all"){var a=ans[x.id];
+      if(st.s==="todo"&&a)return false;
+      if(st.s==="ok"&&!(a&&a===x.a))return false;
+      if(st.s==="bad"&&!(a&&a!==x.a))return false;}
+    if(nq&&x._s.indexOf(nq)<0)return false;
+    return true;});
+}
+function cnt(arr,k){var m={};arr.forEach(function(x){m[x[k]]=(m[x[k]]||0)+1});return m}
+
+function renderGroups(){
+  var c=cnt(base("g"),"g");
+  $("groups").innerHTML=[1,2,3,4].map(function(g){var G=GROUPS[g],n=c[g]||0;
+    return '<button class="gbtn'+(st.g===g?' on':'')+'" data-g="'+g+'" style="--c:var('+G.c+');--cb:var('+G.c+'b)"'+(n?'':' disabled')+'>'+
+    '<div class="gn">Grupo '+g+'</div><div class="gt">'+G.t+'</div><div class="gc">'+G.d+' · <b>'+n+'</b> '+(n===1?'questão':'questões')+'</div></button>'}).join("");
+}
+function renderSide(){
+  var cm=cnt(base("mat"),"mat");
+  $("mats").innerHTML=MAT_ORDER.filter(function(m){return cm[m]||st.mat===m}).map(function(m){
+    return '<button class="chip'+(st.mat===m?' on':'')+'" data-mat="'+m+'">'+m+'<small>'+(cm[m]||0)+'</small></button>'}).join("");
+  var ca=cnt(base("ass"),"ass"),keys=Object.keys(ca).sort(function(a,b){return a.localeCompare(b,"pt")});
+  if(st.ass&&keys.indexOf(st.ass)<0)keys.unshift(st.ass);
+  $("ass").innerHTML='<option value="">Todos os assuntos ('+keys.length+')</option>'+keys.map(function(k){
+    return '<option value="'+esc(k)+'"'+(st.ass===k?' selected':'')+'>'+esc(k)+' ('+(ca[k]||0)+')</option>'}).join("");
+  var cp=cnt(base("p"),"p");
+  $("parts").innerHTML=[1,2,3,4].map(function(p){return '<button class="chip'+(st.p===p?' on':'')+'" data-p="'+p+'">Parte '+p+'<small>'+(cp[p]||0)+'</small></button>'}).join("");
+  var S=[["all","Todas"],["todo","Não respondidas"],["ok","Acertei"],["bad","Errei"]];
+  $("stat").innerHTML=S.map(function(s){return '<button class="chip'+(st.s===s[0]?' on':'')+'" data-s="'+s[0]+'">'+s[1]+'</button>'}).join("");
+  var all=cnt(QS,"mat"),max=Math.max.apply(null,MAT_ORDER.map(function(m){return all[m]||0}));
+  $("dist").innerHTML=MAT_ORDER.map(function(m){var n=all[m]||0;return '<div class="sb"><span>'+m+'</span><i><u style="width:'+(n/max*100)+'%"></u></i><em>'+n+'</em></div>'}).join("");
+}
+function card(x,i){
+  var G=GROUPS[x.g],a=ans[x.id],L="ABCDE";
+  var parts=x.t.split(/\n\s*\n/),cmd=parts.pop();
+  var body=parts.map(function(p){return '<p>'+esc(p)+'</p>'}).join("");
+  if(x.fig)body+='<div class="fig"><b>Figura do PDF</b>'+esc(x.fig)+'</div>';
+  body+='<p class="cmd">'+esc(cmd)+'</p>';
+  var opts=x.o.map(function(o,k){var l=L[k],cls="";
+    if(a){if(l===x.a)cls=" right";else if(l===a)cls=" wrong";}
+    return '<li><button class="opt'+cls+'" data-id="'+x.id+'" data-l="'+l+'"><span class="L">'+l+'</span><span>'+esc(o)+'</span></button></li>'}).join("");
+  var status=a?(a===x.a?'<span class="status ok">✓ acertou</span>':'<span class="status bad">✕ marcou '+a+'</span>'):'';
+  return '<article class="q'+(a?' locked':'')+'" style="--c:var('+G.c+');--cb:var('+G.c+'b);animation-delay:'+Math.min(i*40,400)+'ms">'+
+   '<div class="qh"><span class="qnum"><small>PARTE '+x.p+'</small>Q'+String(x.n).padStart(2,"0")+'</span>'+
+   '<span class="tag m">'+esc(x.mat)+'</span><span class="tag">'+esc(x.ass)+'</span><span class="tag g">Grupo '+x.g+'</span>'+status+'</div>'+
+   '<div class="qb">'+body+'</div><ul class="opts">'+opts+'</ul>'+
+   '<div class="qf"><button class="lbtn" data-sol="'+x.id+'">'+(a?'Ver resolução':'Ver gabarito e resolução')+'</button>'+(a?'<button class="lbtn" data-undo="'+x.id+'">Refazer</button>':'')+'</div>'+
+   '<div class="sol'+(st.printAll?' open':'')+'" id="sol-'+x.id+'"><h4>Gabarito: letra <span>'+x.a+'</span></h4>'+x.r.split(/\n\s*\n/).map(function(p){return '<p>'+esc(p)+'</p>'}).join("")+'</div></article>';
+}
+function render(){
+  renderGroups();renderSide();
+  var arr=base();
+  if(st.order){var pos={};st.order.forEach(function(id,i){pos[id]=i});arr.sort(function(a,b){return pos[a.id]-pos[b.id]})}
+  var pages=Math.max(1,Math.ceil(arr.length/PER));if(st.page>pages)st.page=pages;
+  var shown=st.printAll?arr:arr.slice((st.page-1)*PER,st.page*PER);
+  $("list").innerHTML=shown.length?shown.map(card).join(""):'<div class="empty">Nenhuma questão com esses filtros.</div>';
+  $("count").innerHTML='<em>'+arr.length+'</em> '+(arr.length===1?'questão':'questões');
+  var act=[];if(st.g)act.push("Grupo "+st.g);if(st.mat)act.push(st.mat);if(st.ass)act.push(st.ass);if(st.p)act.push("Parte "+st.p);if(st.q)act.push('"'+st.q+'"');
+  $("active").innerHTML=act.length?act.map(esc).join(" · ")+'<button id="clr2">limpar</button>':(st.order?'ordem embaralhada':'ordem do caderno');
+  var pg="";if(pages>1&&!st.printAll){for(var i=1;i<=pages;i++)pg+='<button class="'+(i===st.page?'on':'')+'" data-pg="'+i+'">'+i+'</button>'}
+  $("pager").innerHTML=pg;
+  var done=arr.filter(function(x){return ans[x.id]}),ok=done.filter(function(x){return ans[x.id]===x.a});
+  $("sTot").textContent=arr.length;$("sDone").textContent=done.length;$("sPct").textContent=done.length?Math.round(ok.length/done.length*100)+"%":"–";
+}
+function go(){st.page=1;render();}
+document.addEventListener("click",function(e){
+  var t=e.target.closest("button");if(!t)return;
+  if(t.dataset.g){var g=+t.dataset.g;st.g=st.g===g?null:g;go();}
+  else if(t.dataset.mat){st.mat=st.mat===t.dataset.mat?null:t.dataset.mat;st.ass="";go();}
+  else if(t.dataset.p){var p=+t.dataset.p;st.p=st.p===p?null:p;go();}
+  else if(t.dataset.s){st.s=t.dataset.s;go();}
+  else if(t.dataset.pg){st.page=+t.dataset.pg;render();window.scrollTo({top:$("list").offsetTop-90,behavior:"smooth"});}
+  else if(t.dataset.l){var id=t.dataset.id;if(ans[id])return;ans[id]=t.dataset.l;save();
+    var y=window.scrollY;render();window.scrollTo(0,y);var s=$("sol-"+id);if(s)s.classList.add("open");}
+  else if(t.dataset.sol){$("sol-"+t.dataset.sol).classList.toggle("open");}
+  else if(t.dataset.undo){delete ans[t.dataset.undo];save();var y2=window.scrollY;render();window.scrollTo(0,y2);}
+  else if(t.id==="clear"||t.id==="clr2"){st={g:null,mat:null,ass:"",p:null,s:"all",q:"",page:1,order:null,printAll:false};$("q").value="";go();}
+  else if(t.id==="shuffle"){var ids=QS.map(function(x){return x.id});for(var i=ids.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var k=ids[i];ids[i]=ids[j];ids[j]=k}st.order=ids;go();}
+  else if(t.id==="reset"){if(confirm("Apagar todas as suas respostas salvas?")){ans={};save();render();}}
+  else if(t.id==="print"){window.print();}
+  else if(t.id==="menuBtn"){$("side").classList.toggle("show");}
+});
+$("ass").addEventListener("change",function(){st.ass=this.value;go();});
+var tm;$("q").addEventListener("input",function(){var v=this.value;clearTimeout(tm);tm=setTimeout(function(){st.q=v;go();},200);});
+window.addEventListener("beforeprint",function(){st.printAll=true;render();});
+window.addEventListener("afterprint",function(){st.printAll=false;render();});
+render();
+})();
+</script>
+</body>
+</html>
